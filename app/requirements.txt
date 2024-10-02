@@ -1,0 +1,7 @@
+python-dotenv
+numpy==1.26.4
+sentence-transformers==2.7.0
+openai==1.35.7
+elasticsearch==8.14.0
+streamlit
+psycopg2-binary==2.9.9
