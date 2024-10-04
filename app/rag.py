@@ -11,7 +11,7 @@ ELASTIC_URL=os.getenv("ELASTIC_URL")
 es_client=Elasticsearch(ELASTIC_URL)
 client = OpenAI(api_key=OPENAI_API_KEY)
 
-model=SentenceTransformer(all-MiniLM-L12-v2)
+model_name='gpt-4o-mini'
 index_name="food_recipes"
 
 def elastic_search_text(query, index_name="food_recipes"):
@@ -67,16 +67,16 @@ def build_prompt(query,search_results):
         prompt=prompt_template.format(question=query,context=context).strip()
         return prompt
 
-def llm(prompt,model='gpt-4o-mini'):
+def llm(prompt,model=model_name):
         start_time=time.time()
-        response=client.chat.completions.create(model=model,
+        response=client.chat.completions.create(model=model_name,
                                             messages=[{"role":"user","content":prompt}]
                                             )
         answer= response.choices[0].message.content
-        tokens={
-                'prompt_tokens'= response.usage.prompt_tokens,
-                'completion_tokens'= response.usage.completion_tokens,       
-                'total_tokens'=response.usage.total_tokens
+        tokens = {
+            'prompt_tokens': response.usage.prompt_tokens,
+            'completion_tokens': response.usage.completion_tokens,
+            'total_tokens': response.usage.total_tokens
         }
         end_time=time.time()
         response_time=end_time-start_time

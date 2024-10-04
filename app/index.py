@@ -7,11 +7,12 @@ from tqdm.auto import tqdm
 from dotenv import load_dotenv
 
 load_dotenv()
-from db import init_db
+from postgres import init_db
 ELASTIC_URL = os.getenv("ELASTIC_URL_LOCAL")
 MODEL_NAME = os.getenv("MODEL_NAME")
 INDEX_NAME = os.getenv("INDEX_NAME")
 DATA_PATH = os.getenv("DATA_PATH")
+
 
 def load_data(data=DATA_PATH):
     df=pd.read_csv(data)
@@ -55,16 +56,16 @@ def set_elasticsearch():
 
 def index_docs(es_client,documents,model):
     print("indexing docs..")
-    for recipe in tqdm(clean_recipes):
+    for recipe in tqdm(documents):
             title = recipe['title']
             ingredients = recipe['ingredients']
             direction = recipe['direction']
             recipe['combined_vector']=model.encode(title + ' '+ ingredients + ' '+ direction )
             try:
-                es_client.index(index=index_name,document=recipe)  
+                es_client.index(index=INDEX_NAME,document=recipe)  
             except Exception as e:
-                print(e)  
-    print(f"indexed {len{documents}documents}")   
+                print(f"Error indexing document {recipe['title']}: {e}") 
+    print(f"indexed {len(documents)} documents")   
 
 def main():
     print(f"starting the indexing..")    
@@ -77,7 +78,7 @@ def main():
     init_db()
     print("data indexing completed")
 
-if __name__ == "__main__"
+if __name__ == "__main__":
     main()
 
                     
