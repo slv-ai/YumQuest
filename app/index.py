@@ -15,9 +15,14 @@ DATA_PATH = os.getenv("DATA_PATH")
 
 
 def load_data(data=DATA_PATH):
-    df=pd.read_csv(data)
-    documents=df.to_dict(orient="records")
-    return documents
+    df=pd.read_json(data)
+    receipes=df.to_dict(orient='records')
+    clean_recipes = []
+    for recipe in receipes:
+        clean_recipe = {key: value for key, value in recipe.items() if key not in ['output', 'date']}
+        clean_recipes.append(clean_recipe)
+    
+    return clean_recipes
 
 def load_model():
     print(f"loading model:{MODEL_NAME}")

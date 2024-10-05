@@ -13,6 +13,7 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 
 model_name='gpt-4o-mini'
 index_name="food_recipes"
+model=SentenceTransformer("all-MiniLM-L12-v2")
 
 def elastic_search_text(query, index_name="food_recipes"):
     search_query = {
