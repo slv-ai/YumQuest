@@ -54,7 +54,7 @@ def init_db():
     finally:
         conn.close()
 
-def save_conversation(conversation_id, question, answer_data, course, timestamp=None):
+def save_conversation(conversation_id, question, answer_data, timestamp=None):
     if timestamp is None:
         timestamp = datetime.now(tz)
     
