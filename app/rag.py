@@ -37,7 +37,7 @@ def elastic_search_text(query, index_name="food_recipes"):
 
 
 
-def elastic_search_knn_query(field,vector):
+def elastic_search_knn_query(field,vector,index_name="food_recipes"):
             knn={
                 "field":field,
                 "query_vector":vector,
@@ -129,7 +129,7 @@ def get_answer(query, search_type):
         search_results = elastic_search_text(query)
 
     prompt = build_prompt(query, search_results)
-    answer, tokens, response_time = llm(prompt, model=model)
+    answer, tokens, response_time = llm(prompt, model=model_name)
     
     relevance, explanation, eval_tokens = evaluate_relevance(query, answer)
 
@@ -140,7 +140,7 @@ def get_answer(query, search_type):
         'response_time': response_time,
         'relevance': relevance,
         'relevance_explanation': explanation,
-        'model_used': model,
+        'model_used': model_name,
         'prompt_tokens': tokens['prompt_tokens'],
         'completion_tokens': tokens['completion_tokens'],
         'total_tokens': tokens['total_tokens'],

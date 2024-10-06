@@ -11,7 +11,7 @@ tz = ZoneInfo("America/New_York")
 def get_db_connection():
     return psycopg2.connect(
         host=os.getenv("POSTGRES_HOST", "postgres"),
-        database=os.getenv("POSTGRES_DB", "course_assistant"),
+        database=os.getenv("POSTGRES_DB", "food_recipes"),
         user=os.getenv("POSTGRES_USER", "your_username"),
         password=os.getenv("POSTGRES_PASSWORD", "your_password"),
     )
@@ -67,7 +67,7 @@ def save_conversation(conversation_id, question, answer_data, timestamp=None):
                 (id, question, answer, model_used, response_time, relevance, 
                 relevance_explanation, prompt_tokens, completion_tokens, total_tokens, 
                 eval_prompt_tokens, eval_completion_tokens, eval_total_tokens, openai_cost, timestamp)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, COALESCE(%s, CURRENT_TIMESTAMP))
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, COALESCE(%s, CURRENT_TIMESTAMP))
             """,
                 (
                     conversation_id,
@@ -88,6 +88,9 @@ def save_conversation(conversation_id, question, answer_data, timestamp=None):
                 ),
             )
         conn.commit()
+        print(f"Conversation {conversation_id} saved successfully.")
+    except Exception as e:
+        print(f"Error saving conversation: {e}")
     finally:
         conn.close()
 
@@ -104,6 +107,9 @@ def save_feedback(conversation_id, feedback, timestamp=None):
                 (conversation_id, feedback, timestamp),
             )
         conn.commit()
+        print(f"Feedback for conversation {conversation_id} saved successfully.")
+    except Exception as e:
+        print(f"Error saving feedback: {e}")
     finally:
         conn.close()
 
