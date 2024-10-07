@@ -47,7 +47,7 @@ The dataset is structured in a format suitable for efficient retrieval and inter
 2.first run the docker-compose 
    - docker-compose up
 
-3. Run index.py file
+3.Run index.py file
    -  export POSTGRES_HOST="localhost"
    -  python index.py
   ## Code
@@ -84,6 +84,7 @@ RELEVANT           0.748
 PARTLY_RELEVANT    0.228
 
 NON_RELEVANT       0.024
+
 i performed hybrid search using gpt-4o-mini.
 
 
