@@ -41,23 +41,23 @@ The dataset is structured in a format suitable for efficient retrieval and inter
   ## Running the Application
 
 1.Install the required dependencies
-  pip install psycopg2-binary python-dotenv
-  pip install pgcli
+ - pip install psycopg2-binary python-dotenv
+ - pip install pgcli
 
 2.first run the docker-compose 
-    docker-compose up
+   - docker-compose up
 
 3. Run index.py file
-     export POSTGRES_HOST="localhost"
-     python index.py
+   -  export POSTGRES_HOST="localhost"
+   -  python index.py
   ## Code
 The code for the application is in the app folder:
 
-app.py - the streamlit application
-rag.py - rag building and evaluation
-index.py - loading the data into the knowledge base
-postges.py - initalizing database
-generate_synthetic_data.py-for grafana monitoring
+-app.py - the streamlit application
+-rag.py - rag building and evaluation
+-index.py - loading the data into the knowledge base
+-postges.py - initalizing database
+-generate_synthetic_data.py-for grafana monitoring
 
 ## Experiments
   It is in notebooks folder
@@ -68,17 +68,21 @@ generate_synthetic_data.py-for grafana monitoring
  i used LLM as a judge to evaluate rag flow
  i took a sample with 200 records, 
  
- results tested with gpt-4o-mini:
+ # results tested with gpt-4o-mini:
  
  RELEVANT           0.844
+ 
  PARTLY_RELEVANT    0.140
+ 
  NON_RELEVANT       0.016
  
 
-results for gpt-4o:
+# results for gpt-4o:
 
 RELEVANT           0.748
+
 PARTLY_RELEVANT    0.228
+
 NON_RELEVANT       0.024
 i performed hybrid search using gpt-4o-mini.
 
