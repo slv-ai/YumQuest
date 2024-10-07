@@ -76,7 +76,7 @@ The code for the application is in the app folder:
  - used LLM as a judge to evaluate rag flow
  - took a sample with 200 records, 
  
- # results tested with gpt-4o-mini:
+ # results - gpt-4o-mini:
  
  RELEVANT           0.844
  
@@ -85,7 +85,7 @@ The code for the application is in the app folder:
  NON_RELEVANT       0.016
  
 
-# results for gpt-4o:
+# results - gpt-4o:
 
 RELEVANT           0.748
 
