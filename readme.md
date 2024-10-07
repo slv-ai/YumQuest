@@ -30,17 +30,11 @@ The dataset is structured in a format suitable for efficient retrieval and inter
  
 ## Technologies 
   -language : python 3.12
-
   -LLM : OpenAI(gpt-4o-mini)
-
   -text search & hybrid search: elastic search
-
   -interface : streamlit
-
   -monitoring:grafana
-
   -containerization: docker-compose
-
   -Monitoring : grafana
 
 
