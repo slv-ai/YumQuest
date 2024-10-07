@@ -93,6 +93,8 @@ PARTLY_RELEVANT    0.228
 
 NON_RELEVANT       0.024
 
+![Alt text](https://github.com/slv-ai/YumQuest/blob/main/img1.png)
+
 
 
 
