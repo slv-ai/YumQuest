@@ -29,17 +29,63 @@ The dataset is structured in a format suitable for efficient retrieval and inter
   - `directions`: Step-by-step cooking instructions
  
 ## Technologies 
-language : python 3.12
+  -language : python 3.12
 
-LLM : OpenAI(gpt-4o-mini)
+  -LLM : OpenAI(gpt-4o-mini)
 
-text search & hybrid search: elastic search
+  -text search & hybrid search: elastic search
 
-interface : streamlit
+  -interface : streamlit
 
-monitoring:grafana
+  -monitoring:grafana
 
-containerization: docker-compose
+  -containerization: docker-compose
+
+  -Monitoring : grafana
 
 
-Monitoring : grafana
+  ## Running the Application
+
+1.Install the required dependencies
+  pip install psycopg2-binary python-dotenv
+  pip install pgcli
+
+2.first run the docker-compose 
+    docker-compose up
+
+3. Run index.py file
+     export POSTGRES_HOST="localhost"
+     python index.py
+  ## Code
+The code for the application is in the app folder:
+
+app.py - the streamlit application
+rag.py - rag building and evaluation
+index.py - loading the data into the knowledge base
+postges.py - initalizing database
+generate_synthetic_data.py-for grafana monitoring
+
+## Experiments
+  It is in notebooks folder
+  rag.ipynb - for rag building, retrieval evaluation, rag evaluation
+  evaluation_data_generation.ipynb - generate data for evaluation
+
+## RAG Flow Evaluation
+ i used LLM as a judge to evaluate rag flow
+ i took a sample with 200 records, 
+ 
+ results tested with gpt-4o-mini:
+ 
+ RELEVANT           0.844
+ PARTLY_RELEVANT    0.140
+ NON_RELEVANT       0.016
+ 
+
+results for gpt-4o:
+
+RELEVANT           0.748
+PARTLY_RELEVANT    0.228
+NON_RELEVANT       0.024
+i performed hybrid search using gpt-4o-mini.
+
+
