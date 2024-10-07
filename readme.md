@@ -86,6 +86,6 @@ PARTLY_RELEVANT    0.228
 
 NON_RELEVANT       0.024
 
-i performed hybrid search using gpt-4o-mini.
+
 
 
