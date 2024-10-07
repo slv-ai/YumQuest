@@ -6,7 +6,11 @@ This QA assistant helps users to ask questions related to recipes,the knowledge 
 
 ## technologies 
 language : python 3.12
+
 LLM : OpenAI(gpt-4o-mini)
+
 elastic search for hybrid search
+
 interface : streamlit
+
 Monitoring : grafana
