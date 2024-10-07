@@ -29,13 +29,12 @@ The dataset is structured in a format suitable for efficient retrieval and inter
   - `directions`: Step-by-step cooking instructions
  
 ## Technologies 
-  -language : python 3.12
-  -LLM : OpenAI(gpt-4o-mini)
-  -text search & hybrid search: elastic search
-  -interface : streamlit
-  -monitoring:grafana
-  -containerization: docker-compose
-  -Monitoring : grafana
+  - language : python 3.12
+  - LLM : OpenAI(gpt-4o-mini)
+  - text search & hybrid search: elastic search
+  - interface : streamlit
+  - containerization: docker-compose
+  - Monitoring : grafana
 
 
   ## Running the Application
@@ -61,13 +60,17 @@ The code for the application is in the app folder:
 
 ## Experiments
   It is in notebooks folder
-  -rag.ipynb - for rag building, retrieval evaluation, rag evaluation
-  
-  -evaluation_data_generation.ipynb - generate data for evaluation
+  - rag_evaluation.ipynb ->  rag evaluation
+  - retrieval_evaluation.ipynb -> retrieval evaluation
+  - evaluation_data_generation.ipynb -> generate data for evaluation
+
+## Retrieval Evaluation
+  - Hit Rate: 96 %
+  - MRR: 85 %
 
 ## RAG Flow Evaluation
- i used LLM as a judge to evaluate rag flow
- i took a sample with 200 records, 
+ - used LLM as a judge to evaluate rag flow
+ - took a sample with 200 records, 
  
  # results tested with gpt-4o-mini:
  
