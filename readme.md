@@ -39,16 +39,20 @@ The dataset is structured in a format suitable for efficient retrieval and inter
 
   ## Running the Application
 
-1.Install the required dependencies
+1.Place your OPENAI API KEY IN .env file and Install the required dependencies
  - pip install psycopg2-binary python-dotenv
  - pip install pgcli
 
-2.first run the docker-compose 
+2.To initialize and run PostgreSQL,Elasticsearch,Streamlit,grafana
+   - docker-compose build
    - docker-compose up
 
-3.Run index.py file
+3.To run PostgreSQL locally,
    -  export POSTGRES_HOST="localhost"
+
+4.To ingest the script
    -  python index.py
+     
   ## Code
 The code for the application is in the app folder:
 
