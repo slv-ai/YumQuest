@@ -53,16 +53,17 @@ The dataset is structured in a format suitable for efficient retrieval and inter
   ## Code
 The code for the application is in the app folder:
 
--app.py - the streamlit application
--rag.py - rag building and evaluation
--index.py - loading the data into the knowledge base
--postges.py - initalizing database
--generate_synthetic_data.py-for grafana monitoring
+- app.py - the streamlit application
+- rag.py - rag building and evaluation
+- index.py - loading the data into the knowledge base
+- postges.py - initalizing database
+- generate_synthetic_data.py-for grafana monitoring
 
 ## Experiments
   It is in notebooks folder
-  rag.ipynb - for rag building, retrieval evaluation, rag evaluation
-  evaluation_data_generation.ipynb - generate data for evaluation
+  -rag.ipynb - for rag building, retrieval evaluation, rag evaluation
+  
+  -evaluation_data_generation.ipynb - generate data for evaluation
 
 ## RAG Flow Evaluation
  i used LLM as a judge to evaluate rag flow
