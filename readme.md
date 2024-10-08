@@ -93,7 +93,7 @@ PARTLY_RELEVANT    0.228
 
 NON_RELEVANT       0.024
 
-## Monitoring- gafana to monitor the application
+## Monitoring- grafana to monitor the application
 ![Alt text](https://github.com/slv-ai/YumQuest/blob/main/img2.png) 
 ![Alt text](https://github.com/slv-ai/YumQuest/blob/main/img4.png)
 ![Alt text](https://github.com/slv-ai/YumQuest/blob/main/img3.png)
