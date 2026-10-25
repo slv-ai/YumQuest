@@ -1,0 +1,9 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: yumquest
+      POSTGRES_PASSWORD: yumquest
+      POSTGRES_DB: yumquest
+    ports:
+      - "5434:5432"
