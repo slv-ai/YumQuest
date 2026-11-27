@@ -12,6 +12,8 @@ PROJECT_DIR = BASE_DIR.parent
 print(PROJECT_DIR)
 
 load_dotenv()
+
+
 DB_URL = os.getenv("DATABASE_URL","postgresql://yumquest:yumquest@localhost:5434/yumquest")
 
 df = pd.read_json("../data/cleandata_recipes.json")

@@ -3,5 +3,7 @@ psycopg[binary]
 pgvector
 sentence-transformers
 openai
+boto3
 python-dotenv
-streamlit
+fastapi
+uvicorn

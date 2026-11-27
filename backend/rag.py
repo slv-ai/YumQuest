@@ -1,4 +1,5 @@
 import os
+import logging
 import time
 import psycopg
 from dotenv import load_dotenv
@@ -7,23 +8,42 @@ from pgvector.psycopg import register_vector
 from sentence_transformers import SentenceTransformer
 
 load_dotenv()
+log = logging.getLogger("yumquest")
+
 DB_URL = os.getenv("DATABASE_URL","postgresql://yumquest:yumquest@localhost:5434/yumquest")
-MODEL = "gpt-4o-mini"
-PRICE_IN , PRICE_OUT = 0.15 , 0.60
+DEFAULT_PROVIDER = os.getenv("DEFAULT_PROVIDER","openai")
+TOP_K = int(os.getenv("TOP_K", "5"))
+LLM_TIMEOUT = float(os.getenv("LLM_TIMEOUT", "30"))               # seconds to wait for the LLM
+MAX_QUESTION_CHARS = 1000
 
-if not os.getenv("OPENAI_API_KEY"):
-    raise SystemExit("OPENAI_API_KEY not found")
+MODELS = {
+    "openai": os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
+    "bedrock": os.getenv("BEDROCK_MODEL_ID", "us.amazon.nova-lite-v1:0"),
+}
 
-embedder = SentenceTransformer("all-MiniLM-L12-v2")
+PRICES = {
+    "gpt-4o-mini": (0.15, 0.60),
+    "us.amazon.nova-lite-v1:0": (0.06, 0.24),
+}
+
+
 client = OpenAI()
+
+def get_embedder():
+    try:
+        embedder = SentenceTransformer("all-MiniLM-L12-v2")
+    except Exception as e:
+            raise RuntimeError("Could not load the embedding model")from e
+    
+    return embedder
 
 def get_conn():
     conn = psycopg.connect(DB_URL)
     register_vector(conn)
     return conn
 
-def search(query, k=5):
-    query_vec = embedder.encode(query)
+def search(query, k=TOP_K):
+    query_vec = get_embedder.encode(query)
     with get_conn() as conn:
         return conn.execute(
             """
@@ -46,14 +66,46 @@ def build_prompt(query,recipes):
         f"QUESTION: {query}"
     )
 
-def ask_llm(prompt):
+def estimate_cost(model,p_tok,c_tok):
+    if model not in PRICES:
+        return None
+    price_in , price_out = PRICES
+    return (p_tok * price_in + c_tok * price_out) / 1_000_000
+
+def get_openai_client():
+    global _openai_client
+    if _openai_client is None:
+        try:
+            key = os.getenv("OPENAI_API_KEY")
+            if not key:
+                raise ValueError("OPENAI API KEY NOT FOUND")
+        except Exception as e:
+            raise RuntimeError (f"Could not initialize OpenAI client: {e}") from e
+        _openai_client = OpenAI(api_key=key, timeout=LLM_TIMEOUT, max_retries=2)
+    return _openai_client
+
+
+def ask_openai(prompt):
+    
+    client = get_openai_client()
     start = time.time()
-    response = client.chat.completions.create(model=MODEL, messages= [{"role" : "user","content" : prompt }])
+    response = client.chat.completions.create(model=MODELS["openai"], messages= [{"role" : "user","content" : prompt }])
     seconds = time.time() - start
     answer = response.choices[0].message.content or ""
     p_tok, c_tok = response.usage.prompt_tokens , response.usage.completion_tokens
-    cost = (p_tok * PRICE_IN + c_tok * PRICE_OUT) / 1_000_000
-    return answer, p_tok, c_tok, cost, seconds
+    
+    return answer, p_tok, c_tok, estimate_cost(MODELS["openai"],p_tok,c_tok), seconds
+
+def get_bedrock_client():
+    global _bedrock_client
+    if _bedrock_client is None:
+        import boto3
+        from botocore.config import Config
+        _bedrock_client = boto3.client(
+            "bedrock-runtime", region_name=os.getenv("AWS_REGION", "us-east-1"),
+            config=Config(connect_timeout=10, read_timeout=LLM_TIMEOUT,
+                        retries={"max_attempts": 3, "mode": "standard"}))
+    return _bedrock_client
 
 def save_conversation(query, answer, recipe_ids, p_tok, c_tok, cost, seconds):
 

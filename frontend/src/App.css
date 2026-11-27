@@ -1,0 +1,169 @@
+.app {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+
+h1 {
+  margin: 0 0 0.25rem;
+}
+
+h2 {
+  font-size: 1.05rem;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.subtitle {
+  margin: 0 0 1.5rem;
+  color: var(--muted);
+}
+
+.ask-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.ask-form input {
+  flex: 1;
+  padding: 0.7rem 0.9rem;
+  font-size: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--text);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ask-form button {
+  padding: 0.7rem 1.4rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 600;
+}
+
+.examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.75rem 0 1.5rem;
+}
+
+.chip {
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--text);
+  font-size: 0.85rem;
+}
+
+.banner {
+  padding: 0.7rem 0.9rem;
+  border-radius: 8px;
+  margin: 0 0 1rem;
+}
+
+.banner.error {
+  background: var(--error-bg);
+  color: var(--error-text);
+}
+
+.banner.warn {
+  background: var(--warn-bg);
+  color: var(--warn-text);
+}
+
+.status {
+  color: var(--muted);
+}
+
+.card {
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+}
+
+.answer {
+  margin: 0 0 0.5rem;
+}
+
+.answer p {
+  margin: 0 0 0.6rem;
+}
+
+.answer ul,
+.answer ol {
+  margin: 0 0 0.6rem;
+  padding-left: 1.4rem;
+}
+
+.sources {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.muted,
+.meta {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.rating button {
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+}
+
+.rating button[aria-pressed='true'] {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.history {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ">" = direct children only, so list items inside a markdown answer are not styled as history rows */
+.history > li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.history summary {
+  cursor: pointer;
+}
+
+.history .answer {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
